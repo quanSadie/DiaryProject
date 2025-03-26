@@ -1,8 +1,8 @@
-﻿namespace Repository.Entities;
+﻿namespace Repository;
 
 public class EntityBase
 {
     public Guid Id { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime ModifiedDate { get; set; }
+    public DateTime CreatedAt{ get; set; }
+    public DateTime ModifiedAt { get; set; }
 }
