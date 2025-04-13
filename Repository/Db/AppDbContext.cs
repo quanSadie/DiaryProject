@@ -1,20 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Repository;
 
 namespace Repository;
 
-public class AppDBContext : DbContext
+public class AppDbContext : DbContext
 {
-    protected readonly IConfiguration configuration;
+    private readonly IConfiguration configuration;
 
-    public AppDBContext(IConfiguration configuration)
+    
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
-        this.configuration = configuration;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        base.OnConfiguring(optionsBuilder);
         optionsBuilder.UseNpgsql(configuration.GetConnectionString("DiaryDBConnectionString"));
     }
 
@@ -67,6 +68,5 @@ public class AppDBContext : DbContext
             .WithMany(u => u.ThreadPosts)
             .HasForeignKey(tp => tp.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-
     }
 }
