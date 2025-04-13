@@ -8,15 +8,15 @@ public class AppDbContext : DbContext
     private readonly IConfiguration configuration;
 
     
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+    public AppDbContext(IConfiguration configuration)
     {
+        this.configuration = configuration;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseNpgsql(configuration.GetConnectionString("DiaryDBConnectionString"));
+        var connectionString = configuration.GetConnectionString("DiaryDBConnectionString");
+        optionsBuilder.UseNpgsql(connectionString);
     }
 
     public DbSet<User> Users { get; set; }
