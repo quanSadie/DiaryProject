@@ -1,7 +1,7 @@
 ﻿using IRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Repos;
+namespace Repository;
 
 public class BaseRepository<T> : IBaseRepository<T>  where T : EntityBase
 {

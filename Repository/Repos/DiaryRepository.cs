@@ -1,6 +1,10 @@
-﻿namespace Repository.Repos;
+﻿using IRepository;
 
-public class DiaryRepository
+namespace Repository;
+
+public class DiaryRepository : BaseRepository<DiaryEntry>, IDiaryRepository
 {
-    
+    public DiaryRepository(AppDbContext dbContext) : base(dbContext)
+    {
+    }
 }
