@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Repos\" />
+      <ProjectReference Include="..\IRepository\IRepository.csproj" />
     </ItemGroup>
 
 </Project>
