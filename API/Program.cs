@@ -1,13 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Repository;
+using Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DiaryDBConnectionString");
 
+// Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddRepositories(builder.Configuration);
-// Add services to the container.
+builder.Services.AddServices(builder.Configuration);
+builder.Services.AddMapping(builder.Configuration);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
