@@ -11,8 +11,8 @@ public static class LoggerManager
         logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .WriteTo.Console()
-            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day,
-                outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {Message}{NewLine}{Exception}")
+            .WriteTo.File("/log.txt",
+                outputTemplate: "[{Level}] {Message}{NewLine}{Exception}")
             .CreateLogger();
     }
 

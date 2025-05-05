@@ -1,6 +1,4 @@
-﻿using Repository;
-
-namespace IRepository;
+﻿namespace Repository;
 
 public interface IDiaryRepository : IBaseRepository<DiaryEntry>
 {

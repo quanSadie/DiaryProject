@@ -1,5 +1,4 @@
-﻿using IRepository;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
@@ -14,6 +13,7 @@ public class BaseRepository<T> : IBaseRepository<T>  where T : EntityBase
         
     public async Task SaveAsync(T entity)
     {
+        entity.Id = Guid.NewGuid();
         entity.CreatedAt = DateTime.UtcNow;
         entity.ModifiedAt = DateTime.UtcNow;
         await dbContext.Set<T>().AddAsync(entity);
@@ -26,16 +26,16 @@ public class BaseRepository<T> : IBaseRepository<T>  where T : EntityBase
         return await dbContext.SaveChangesAsync() > 0;
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task<bool> UpdateAsync(T entity)
     {
         entity.ModifiedAt = DateTime.UtcNow;
         dbContext.Set<T>().Update(entity);
-        await dbContext.SaveChangesAsync();
+        return await dbContext.SaveChangesAsync() > 0;
     }
 
     public async Task<List<T>> GetAllAsync()
     {
-        return dbContext.Set<T>().ToList();
+        return await dbContext.Set<T>().ToListAsync();
     }
 
     public async Task<T?> GetSingle(Guid guid)

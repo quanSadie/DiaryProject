@@ -10,6 +10,11 @@ public static class ServiceCollectionExtension
         IConfiguration configuration)
     {
         services.AddScoped<IDiaryRepository, DiaryRepository>();
+        services.AddScoped<IMediaRepository, MediaRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IReminderRepository, ReminderRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IThreadRepository, ThreadRepository>();
         return services;
     }
     

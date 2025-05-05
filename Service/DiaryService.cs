@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IRepository;
 using IService;
 using Model;
 using Repository;
@@ -9,7 +8,6 @@ namespace Service;
 
 public class DiaryService : IDiaryService
 {
-    
     private readonly IDiaryRepository diaryRepository;
     private readonly IMapper mapper;
 
@@ -18,12 +16,7 @@ public class DiaryService : IDiaryService
         this.diaryRepository = diaryRepository;
         this.mapper = mapper;
     }
-
-    public async Task Add(DiaryEntry diaryEntry)
-    {
-        await diaryRepository.SaveAsync(diaryEntry);    
-    }
-
+    
     public async Task<Boolean> AddDiary(DiaryEntryDTO diaryEntryDTO)
     {
         try
@@ -50,6 +43,35 @@ public class DiaryService : IDiaryService
         {
             LoggerManager.Error("An error has occurred while retrieving Diaries", ex);
             return null;
+        }
+    }
+
+    public async Task<bool> DeleteDiary(Guid id)
+    {
+        try
+        {
+            var diaryEntity = await diaryRepository.GetSingle(id);
+            return await diaryRepository.DeleteAsync(diaryEntity);
+        }
+        catch (Exception ex)
+        {
+            LoggerManager.Error("An error has occurred while removing Diary", ex);
+            return false;
+        }
+    }
+
+    public async Task<bool> UpdateDiary(DiaryEntryDTO diaryDTO)
+    {
+        try
+        {
+            var diaryEntity = await diaryRepository.GetSingle(diaryDTO.Id);
+            diaryEntity = mapper.Map<DiaryEntry>(diaryDTO);
+            return await diaryRepository.UpdateAsync(diaryEntity);
+        }
+        catch (Exception ex)
+        {
+            LoggerManager.Error("An error has occurred while updating Diary", ex);
+            return false;
         }
     }
 }

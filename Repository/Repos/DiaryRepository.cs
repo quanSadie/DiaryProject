@@ -1,6 +1,4 @@
-﻿using IRepository;
-
-namespace Repository;
+﻿namespace Repository;
 
 public class DiaryRepository : BaseRepository<DiaryEntry>, IDiaryRepository
 {

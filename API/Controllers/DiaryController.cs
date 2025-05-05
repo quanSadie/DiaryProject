@@ -1,34 +1,36 @@
-﻿using IService;
+﻿using APIModel;
+using AutoMapper;
+using IService;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 
-namespace API.Controllers;
+namespace API;
 
+[ApiController]
 [Route("api/[controller]/[action]")]
 public class DiaryController : ControllerBase
 {
     private readonly IDiaryService diaryService;
+    private readonly IMapper mapper;
 
-    public DiaryController(IDiaryService diaryService)
+    public DiaryController(IDiaryService diaryService, IMapper mapper)
     {
         this.diaryService = diaryService;
+        this.mapper = mapper;
     }
 
     [HttpGet()]
     public async Task<IActionResult> GetAllDiaries()
     {
         var diaryList = await diaryService.GetAll();
-        if (diaryList == null)
-        {
-            return Ok(new List<DiaryEntryDTO>()); 
-        }
-        return Ok(diaryList);
+        return Ok(mapper.Map<List<DiaryAPIModel>>(diaryList));
     }
     
     [HttpPost()]
-    public async Task<IActionResult> AddDiary(DiaryEntryDTO diary)
+    public async Task<IActionResult> AddDiary(DiaryAPIModel diary)
     {
-        var result = await diaryService.AddDiary(diary);
+        var diaryDTO = mapper.Map<DiaryEntryDTO>(diary);
+        var result = await diaryService.AddDiary(diaryDTO);
         return result == true ? Ok(diary) : BadRequest();
     }
 }

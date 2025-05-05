@@ -1,4 +1,4 @@
-using API.Middleware;
+using API;
 using APIModel;
 using Microsoft.EntityFrameworkCore;
 using Repository;
@@ -14,7 +14,6 @@ builder.Services.AddRepositories(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddMapping(builder.Configuration);
 builder.Services.AddAPIModleMapper(builder.Configuration);
-builder.Services.AddMvcCore();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,7 +34,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseHttpsRedirection();
 app.Run();
 
-app.UseHttpsRedirection();
