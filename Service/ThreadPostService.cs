@@ -15,7 +15,7 @@ public class ThreadPostService : IThreadPostService
         throw new NotImplementedException();
     }
 
-    public async Task<bool> DeleteThreadPost()
+    public async Task<bool> DeleteThreadPost(Guid id)
     {
         throw new NotImplementedException();
     }

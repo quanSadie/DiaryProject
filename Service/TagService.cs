@@ -15,7 +15,7 @@ public class TagService : ITagService
         throw new NotImplementedException();
     }
 
-    public async Task<bool> DeleteTag()
+    public async Task<bool> DeleteTag(Guid id)
     {
         throw new NotImplementedException();
     }

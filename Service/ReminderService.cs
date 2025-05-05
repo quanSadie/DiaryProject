@@ -15,7 +15,7 @@ public class ReminderService : IReminderService
         throw new NotImplementedException();
     }
 
-    public async Task<bool> DeleteReminder()
+    public async Task<bool> DeleteReminder(Guid id)
     {
         throw new NotImplementedException();
     }

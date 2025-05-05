@@ -15,7 +15,7 @@ public class ThreadService : IThreadService
         throw new NotImplementedException();
     }
 
-    public async Task<bool> DeleteThread()
+    public async Task<bool> DeleteThread(Guid id)
     {
         throw new NotImplementedException();
     }
